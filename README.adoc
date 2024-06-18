@@ -75,3 +75,34 @@ aws sts get-caller-identity
     "Arn": "arn:aws:iam::622194627903:user/XXXXXXXX"
 }
 ----
+
+== Step 3: Create EKS cluster
+
+We are going to use AWS console home UI.
+
+
+
+
+[,console]
+----
+eksctl utils associate-iam-oidc-provider --region=us-east-1 --cluster=ucn-eks-cluster --approve
+----
+
+
+[,console]
+----
+aws eks update-kubeconfig --region us-east-1 --name ucn-eks-cluster
+----
+
+
+[,console]
+----
+eksctl create iamserviceaccount \
+ --name ebs-csi-controller-sa \
+ --namespace kube-system \
+ --cluster ucn-eks-cluster \
+ --attach-policy-arn arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy \
+ --approve \
+ --role-only \
+ --role-name AmazonEKS_EBS_CSI_DriverRole
+----
