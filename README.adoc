@@ -7,3 +7,27 @@ Version : 1.0.0 + date : 2024/06/18 +
 '''
 
 image::https://university.dremio.com/asset-v1:dremio+DCE3+2019+type@asset+block@gnarly-aws-eks.png[]
+
+
+== Introduction
+
+
+== Pre-requisites
+
+
+== Step 1: Get github project
+
+[,console]
+----
+docker pull alpine/k8s:1.27.13
+docker run -i -t alpine/k8s:1.27.13 bash
+----
+
+[,console]
+----
+podman pull alpine/k8s:1.27.13
+podman run -i -t alpine/k8s:1.27.13 bash
+----
+
+
+== Step 1: Get github project
