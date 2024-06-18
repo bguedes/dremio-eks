@@ -14,6 +14,10 @@ image::https://university.dremio.com/asset-v1:dremio+DCE3+2019+type@asset+block@
 
 == Pre-requisites
 
+. Laptop with a supported OS (Windows 7 not supported) or Macbook.
+. A modern browser - Google Chrome (IE, Firefox, Safari not supported).
+. Wifi Internet connection.
+. [Docker Destop](https://www.docker.com/products/docker-desktop/) or [Podman Desktop](https://podman-desktop.io/) installed
 
 == Step 1: Get github project
 
