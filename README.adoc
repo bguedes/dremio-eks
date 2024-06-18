@@ -28,7 +28,7 @@ This image brings all needed tools for creating the EKS cluster and install Drem
 ____
 https://github.com/helm/helm[helm] +
 https://kubernetes.io/docs/tasks/tools/install-kubectl/[kubectl] +
-https://github.com/aws/aws-cli[awscli] 
+https://github.com/aws/aws-cli[awscli]
 ____
 
 [,console]
@@ -44,4 +44,34 @@ podman run -i -t alpine/k8s:1.27.13 bash
 ----
 
 
-== Step 1: Get github project
+== Step 2: AWS configure
+
+On the docker image bash, launch :
+
+[,console]
+----
+aws configure
+----
+{blank}
+
+
+please fill up the values according your aws credentials :
+
+____
+AWS Access Key ID [None]: +
+AWS Secret Access Key [None]: +
+Default region name [None]: +
+Default output format [None]:
+____
+
+Verify that parameters has been taken in account :
+
+[,console]
+----
+aws sts get-caller-identity
+{
+    "Account": "XXXXXXXXXXX",
+    "UserId": "XXXXXXXXX",
+    "Arn": "arn:aws:iam::622194627903:user/XXXXXXXX"
+}
+----
