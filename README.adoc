@@ -20,7 +20,16 @@ This github repository show a simple step by step EKS ckuster creation and a Dre
 . Wifi Internet connection.
 . https://www.docker.com/products/docker-desktop/[Docker Destop] or https://podman-desktop.io/[Podman Desktop] installed
 
-== Step 1: Get github project
+== Step 1: Setup docker image
+
+We are going to use a docker image https://hub.docker.com/r/alpine/k8s[alpine/k8s].
+This image brings all needed tools for creating the EKS cluster and install Dremio on it :
+
+____
+https://github.com/helm/helm[helm] +
+https://kubernetes.io/docs/tasks/tools/install-kubectl/[kubectl] +
+https://github.com/aws/aws-cli[awscli] 
+____
 
 [,console]
 ----
