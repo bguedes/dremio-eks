@@ -16,7 +16,7 @@ This github repository show a simple step by step EKS ckuster creation and a Dre
 == Pre-requisites
 
 . Laptop with a Linux, Windows or Macbook.
-. A modern browser - Google Chrome (IE, Firefox, Safari not supported).
+. A modern browser.
 . Wifi Internet connection.
 . https://www.docker.com/products/docker-desktop/[Docker Destop] or https://podman-desktop.io/[Podman Desktop] installed
 
