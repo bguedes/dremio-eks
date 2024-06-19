@@ -53,7 +53,7 @@ podman run -i -t alpine/k8s:1.27.13 bash
 {blank}
 
 You need to create 2 roles with these policy configuration.
-For the first role, here it is the configuration :
+For the first role (bj-eks-node-role in our example), here it is the configuration :
 
 {blank}
 
@@ -99,7 +99,7 @@ image::images/Role-policy3.png[]
 }
 ----
 
-For the second role, here it is the configuration :
+For the second role (bj-eksClusterRole in our example), here it is the configuration :
 
 {blank}
 
@@ -145,11 +145,23 @@ aws sts get-caller-identity
 
 We are going to use AWS console home UI.
 
+____
+Name : dremio-eks-cluster +
+Kubernetes version : 1.29 +
+Cluster service role : bj-eksClusterRole +
+____
+
 {blank}
 
 image::images/create-eks1.png[]
 
 {blank}
+
+Next step
+
+____
+VPC :  
+____
 
 {blank}
 
@@ -157,11 +169,15 @@ image::images/create-eks2.png[]
 
 {blank}
 
+Next step
+
 {blank}
 
 image::images/create-eks3.png[]
 
 {blank}
+
+Next step
 
 {blank}
 
@@ -169,11 +185,15 @@ image::images/create-eks4.png[]
 
 {blank}
 
+Next step
+
 {blank}
 
 image::images/create-eks5.png[]
 
 {blank}
+
+Next step
 
 {blank}
 
@@ -181,21 +201,117 @@ image::images/create-eks6.png[]
 
 {blank}
 
+Next step
+
 {blank}
 
 image::images/create-eks7.png[]
 
 {blank}
 
+Create the cluster
+
+{blank}
+
+After few minutes, you will get the cluster created, up and running :
+
+{blank}
+
+image::images/eks-creation-result.png[]
+
+{blank}
+
+== Step 3: Create Node Group
+
+{blank}
+
+Choice the compute folder and click 'add node group' button :
+
+{blank}
+
+image::images/create-ng1.png[]
+
+{blank}
+
+Next
+
+{blank}
+
+____
+Name : bg01 +
+Node IAM role : 1.29 +
+Cluster service role : bj-eks-node-role
+____
+
+{blank}
+
+image::images/create-ng2.png[]
+
+{blank}
+
+Next
+
+{blank}
+
+____
+Instance types : m5d.2xlarge +
+Disk size : 100 +
+Desired size : 1 +
+Minimum size : 1 +
+Maximum size : 1 +
+____
+
+{blank}
+
+image::images/create-ng3.png[]
+
+{blank}
+
+Next
+
+{blank}
+
+image::images/create-ng4.png[]
+
+{blank}
+
+Next
+
+{blank}
+
+image::images/create-ng5.png[]
+
+{blank}
+
+Create the Node Group
+
+{blank}
+
+In the end you will get your cluster and node group, up and running.
+
+{blank}
+
+image::images/node-group-up-running.png[]
+
+{blank}
+
+Now let's use Helm to install Dremio on this EKS cluster.
+
+{blank}
+
+== Step 4: Install Dremio
+
+
+
 [,console]
 ----
-eksctl utils associate-iam-oidc-provider --region=us-east-1 --cluster=ucn-eks-cluster --approve
+eksctl utils associate-iam-oidc-provider --region=us-east-1 --cluster=dremio-eks-cluster --approve
 ----
 
 
 [,console]
 ----
-aws eks update-kubeconfig --region us-east-1 --name ucn-eks-cluster
+aws eks update-kubeconfig --region us-east-1 --name dremio-eks-cluster
 ----
 
 
@@ -204,9 +320,21 @@ aws eks update-kubeconfig --region us-east-1 --name ucn-eks-cluster
 eksctl create iamserviceaccount \
  --name ebs-csi-controller-sa \
  --namespace kube-system \
- --cluster ucn-eks-cluster \
+ --cluster dremio-eks-cluster \
  --attach-policy-arn arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy \
  --approve \
  --role-only \
  --role-name AmazonEKS_EBS_CSI_DriverRole
+----
+
+[,console]
+----
+eksctl create addon --name aws-ebs-csi-driver --cluster dremio-eks-cluster --service-account-role-arn arn:aws:iam::$(aws sts get-caller-identity --query Account --output text):role/AmazonEKS_EBS_CSI_DriverRole --force
+----
+
+[,console]
+----
+eksctl get iamidentitymapping --cluster dremio-eks-cluster
+eksctl get iamserviceaccount --cluster dremio-eks-cluster
+eksctl get addon --cluster dremio-eks-cluster
 ----
