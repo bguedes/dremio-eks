@@ -46,6 +46,62 @@ podman run -i -t alpine/k8s:1.27.13 bash
 
 == Step 2: AWS configure
 
+You need to create 2 roles with these policy configuration.
+
+For the first role, here it is the configuration :
+
+{blank}
+
+image::images/Role-policy1.png[]
+
+{blank}
+
+Create a customer managed policy like this :
+
+{blank}
+
+image::images/Role-policy3.png[]
+
+{blank}
+
+[,json]
+----
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:PutObject",
+                "s3:GetObject",
+                "s3:ListBucket",
+                "s3:DeleteObject"
+            ],
+            "Resource": [
+                "arn:aws:s3:::bj-s3",
+                "arn:aws:s3:::bj-s3/*"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:ListALLMyBuckets",
+                "s3:GetBucketLocation"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+----
+
+For the second role, here it is the configuration :
+
+{blank}
+
+image::images/Role-policy2.png[]
+
+{blank}
+
 On the docker image bash, launch :
 
 [,console]
