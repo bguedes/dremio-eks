@@ -46,6 +46,12 @@ podman run -i -t alpine/k8s:1.27.13 bash
 
 == Step 2: AWS configure
 
+{blank}
+
+=== Configuring specific roles
+
+{blank}
+
 You need to create 2 roles with these policy configuration.
 
 For the first role, here it is the configuration :
@@ -99,6 +105,10 @@ For the second role, here it is the configuration :
 {blank}
 
 image::images/Role-policy2.png[]
+
+{blank}
+
+=== Configuring AWS 
 
 {blank}
 
