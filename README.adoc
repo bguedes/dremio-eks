@@ -53,7 +53,6 @@ podman run -i -t alpine/k8s:1.27.13 bash
 {blank}
 
 You need to create 2 roles with these policy configuration.
-
 For the first role, here it is the configuration :
 
 {blank}
@@ -146,8 +145,47 @@ aws sts get-caller-identity
 
 We are going to use AWS console home UI.
 
+{blank}
 
+image::images/create-eks1.png[]
 
+{blank}
+
+{blank}
+
+image::images/create-eks2.png[]
+
+{blank}
+
+{blank}
+
+image::images/create-eks3.png[]
+
+{blank}
+
+{blank}
+
+image::images/create-eks4.png[]
+
+{blank}
+
+{blank}
+
+image::images/create-eks5.png[]
+
+{blank}
+
+{blank}
+
+image::images/create-eks6.png[]
+
+{blank}
+
+{blank}
+
+image::images/create-eks7.png[]
+
+{blank}
 
 [,console]
 ----
