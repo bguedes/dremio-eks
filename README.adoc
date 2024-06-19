@@ -293,14 +293,8 @@ In the end you will get your cluster and node group, up and running.
 
 image::images/node-group-up-running.png[]
 
-{blank}
-
-Now let's use Helm to install Dremio on this EKS cluster.
 
 {blank}
-
-== Step 4: Install Dremio
-
 
 
 [,console]
@@ -313,7 +307,6 @@ eksctl utils associate-iam-oidc-provider --region=us-east-1 --cluster=dremio-eks
 ----
 aws eks update-kubeconfig --region us-east-1 --name dremio-eks-cluster
 ----
-
 
 [,console]
 ----
@@ -338,3 +331,11 @@ eksctl get iamidentitymapping --cluster dremio-eks-cluster
 eksctl get iamserviceaccount --cluster dremio-eks-cluster
 eksctl get addon --cluster dremio-eks-cluster
 ----
+
+{blank}
+
+Now let's use Helm to install Dremio on this EKS cluster.
+
+{blank}
+
+== Step 4: Install Dremio
