@@ -238,7 +238,7 @@ Next
 {blank}
 
 ____
-Name : bg01 +
+Name : ng01 +
 Node IAM role : 1.29 +
 Cluster service role : bj-eks-node-role
 ____
@@ -296,17 +296,21 @@ image::images/node-group-up-running.png[]
 
 {blank}
 
+Associate IAM with OIDC :
 
 [,console]
 ----
 eksctl utils associate-iam-oidc-provider --region=us-east-1 --cluster=dremio-eks-cluster --approve
 ----
 
+Configure kubectl localy to your docker instance :
 
 [,console]
 ----
 aws eks update-kubeconfig --region us-east-1 --name dremio-eks-cluster
 ----
+
+Create IAM Service Account :
 
 [,console]
 ----
@@ -320,10 +324,14 @@ eksctl create iamserviceaccount \
  --role-name AmazonEKS_EBS_CSI_DriverRole
 ----
 
+Create addons :
+
 [,console]
 ----
 eksctl create addon --name aws-ebs-csi-driver --cluster dremio-eks-cluster --service-account-role-arn arn:aws:iam::$(aws sts get-caller-identity --query Account --output text):role/AmazonEKS_EBS_CSI_DriverRole --force
 ----
+
+Check that everything has been well configured :
 
 [,console]
 ----
@@ -339,3 +347,34 @@ Now let's use Helm to install Dremio on this EKS cluster.
 {blank}
 
 == Step 4: Install Dremio
+
+{blank}
+
+Let's use the following Dremio github repository https://github.com/dremio/dremio-cloud-tools/tree/master[dremio-cloud-tools]
+
+{blank}
+
+[,console]
+----
+git clone https://github.com/dremio/dremio-cloud-tools.git
+cd dremio-cloud-tools/charts/dremio_v2/
+----
+
+Let's rename the move the existing values.yaml :
+
+[,console]
+----
+mv values.yaml values.old
+----
+
+Now let's create a new values.yaml file, copying the content of following values.yaml :
+
+[,console]
+----
+vi values.yaml
+----
+
+[,console]
+----
+helm upgrade dr0 . --install
+----
