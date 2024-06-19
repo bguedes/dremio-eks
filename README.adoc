@@ -379,6 +379,18 @@ vi values.yaml
 helm upgrade dr0 . --install
 ----
 
+Verify that pods have been instancied :
+
+[,console]
+----
+kubectl get pods
+
+NAME                READY   STATUS    RESTARTS   AGE
+dremio-executor-0   1/1     Running   0          18m
+dremio-master-0     1/1     Running   0          18m
+zk-0                1/1     Running   0          18m
+----
+
 {blank}
 Get services :
 
