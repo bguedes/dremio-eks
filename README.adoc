@@ -378,3 +378,19 @@ vi values.yaml
 ----
 helm upgrade dr0 . --install
 ----
+
+{blank}
+Get services :
+
+[,console]
+----
+kubectl get svc
+
+NAME                 TYPE           CLUSTER-IP       EXTERNAL-IP                                                               PORT(S)                                          AGE
+dremio-client        LoadBalancer   10.100.167.120   a63aa4689c00a4536bcb5b8fcfa88614-1335824603.us-east-1.elb.amazonaws.com   31010:32379/TCP,9047:31140/TCP,32010:30321/TCP   14m
+dremio-cluster-pod   ClusterIP      None             <none>                                                                    9999/TCP                                         14m
+kubernetes           ClusterIP      10.100.0.1       <none>                                                                    443/TCP                                          140m
+zk-cs                ClusterIP      10.100.182.26    <none>                                                                    2181/TCP
+----
+
+In this example open a browser, open a63aa4689c00a4536bcb5b8fcfa88614-1335824603.us-east-1.elb.amazonaws.com:9047.
